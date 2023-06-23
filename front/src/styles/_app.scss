@@ -1,0 +1,19 @@
+@import './variables';
+@import './_index.scss';
+
+// Pages
+@import './pages/account';
+@import './pages/accountTutorial';
+
+// Components
+@import './components/alertComponent';
+@import './components/footer';
+@import './components/form';
+@import './components/cardComponent';
+@import './components/tableCompoent';
+
+
+// Components - Layout
+@import './components//Layout/_profileDropdown';
+@import './components/Layout/_topBar';
+@import './components/Layout/_sideBar';

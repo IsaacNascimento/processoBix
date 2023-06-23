@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  django:
+    image: django-docker:0.0.1
+    build: 
+      context: ./backend/
+    ports:
+      - "8000:8000"
+    # command: python manage.py runserver 0.0.0.0:8000
+
+  react:
+    image: react-docker:0.0.1
+    build: 
+      context: ./front/
+    ports:
+      - "3000:3000"

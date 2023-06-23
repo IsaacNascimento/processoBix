@@ -1,0 +1,45 @@
+$grid-gutter-width: 1.5rem;
+$footer-color: #000;
+$vertical-menu-width: 250px;
+$footer-height: 60px;
+$footer-bg: #fff;
+$vertical-menu-width-sm: 70px;
+$vertical-menu-width-md: 180px;
+
+.footer {
+  bottom: 0;
+  padding: 20px calc(#{$grid-gutter-width} * 0.5);
+  position: absolute;
+  right: 0;
+  color: $footer-color;
+  left: $vertical-menu-width;
+  height: $footer-height;
+  background-color: $footer-bg;
+
+  @media (max-width: 991.98px) {
+    left: 0;
+  }
+}
+
+.footer {
+  left: $vertical-menu-width-sm;
+
+  @media (max-width: 767.98px) {
+    left: 0;
+  }
+}
+
+.footer {
+  left: $vertical-menu-width-md;
+
+  @media (max-width: 991.98px) {
+    left: 0;
+  }
+}
+
+@media (min-width: 1024.1px) {
+    .footer {
+        left: 0 !important;
+        background-color: transparent;
+    } 
+}
