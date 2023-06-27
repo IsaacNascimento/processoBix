@@ -15,6 +15,7 @@ def jwt_payload_handler(user, token):
         if usuarioLogado.exists():
            
            obj = {
+             'id': user_id,
              'isAdmin': usuarioLogado[0]['is_staff'],
              'email': usuarioLogado[0]['email'],
              'username': usuarioLogado[0]['username'],
