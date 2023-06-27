@@ -1,4 +1,4 @@
-Projeto - React Hepta
+Projeto - Front Bix
 
 ##### npm install - (Instalar pacotes)
 

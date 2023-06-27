@@ -4,15 +4,15 @@ import { useAuth } from "../../shared/hooks/useAuth";
 
 // <--- COMPONENTES  --->
 import { Login } from "../pages/Authentication/Login";
-import { Exemplo } from "../pages/Exemplo/Exemplo";
+import { Exemplo } from "../pages/Empresas/Empresas";
 import { Usuario } from "../pages/Usuarios/Usuario";
 import { ProtectedRoutes } from "./PrivateRoute";
 
 const rotasPrivadas = [
   {
-    id: "exemplo-route",
-    title: "Rota Exemplo",
-    path: "/exemplo",
+    id: "empresa-route",
+    title: "Rota Empresa",
+    path: "/empresa",
     component: <Exemplo />,
   },
   {
@@ -22,16 +22,10 @@ const rotasPrivadas = [
     component: <Usuario />,
   },
   {
-    id: "novo-usuario-route",
-    title: "Rota Novo usuario",
-    path: "/novo-usuario",
-    component: <div>Novo usuário</div>,
-  },
-  {
-    id: "produtos-route",
-    title: "Rota Produtos",
-    path: "/produtos",
-    component: <div>Produtos</div>,
+    id: "linha-tempo-route",
+    title: "Rota linha-tempo",
+    path: "/linha/tempo",
+    component: <div>Linha do Tempo</div>,
   },
 ];
 
@@ -46,12 +40,12 @@ export const Router = () => {
         <Route
           exact
           path="/"
-          element={!isAuth ? <Login /> : <Navigate to={"/exemplo"} />}
+          element={!isAuth ? <Login /> : <Navigate to={"/empresa"} />}
         />
         <Route
           exact
           path="/login"
-          element={!isAuth ? <Login /> : <Navigate to={"/exemplo"} />}
+          element={!isAuth ? <Login /> : <Navigate to={"/empresa"} />}
         />
 
         {/*  --------- ROTAS PRIVADAS ---------  */}

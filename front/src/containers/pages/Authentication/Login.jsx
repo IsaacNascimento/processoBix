@@ -15,7 +15,7 @@ export const Login = () => {
   // garantir que o usuario não tenha acesso a rotas publicas quando estiver conectado
   useEffect(() => {
     if (isAuth) {
-      navigate("/exemplo");
+      navigate("/empresa");
     }
   }, [isAuth, navigate]);
 

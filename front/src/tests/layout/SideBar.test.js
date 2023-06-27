@@ -4,10 +4,10 @@ import "@testing-library/jest-dom";
 import { BrowserRouter } from "react-router-dom";
 
 describe("SideBar Compoent", () => {
-  test("It must initiliaze with HEPTA DASHBOARD text", () => {
+  test("It must initiliaze with BIX DASHBOARD text", () => {
     render(<SideBar />, { wrapper: BrowserRouter });
 
-    const title = screen.getByText("HEPTA DASHBOARD");
+    const title = screen.getByText("BIX DASHBOARD");
     expect(title).toBeInTheDocument();
   });
 

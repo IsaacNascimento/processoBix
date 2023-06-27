@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ProfileDropdown } from "./components/ProfileDropdown";
-import logo from "../../../shared/images/haas-logo.png";
+import logo from "../../../shared/images/logo-bix.png";
 import { Link } from "react-router-dom";
 import * as RiIcons from "react-icons/ri";
 
@@ -30,12 +30,12 @@ export const Header = ({handleToggler, ...args}) => {
                 >
                   <RiIcons.RiMenuLine className="sidebar-icon" />
                 </button>
-                <Link to={"/exemplo"}>
+                <Link to={"/empresa"}>
                   <img
                     className="m-4"
-                    width={140}
+                    width={180}
                     src={logo}
-                    alt="hepta-logo"
+                    alt="bix-logo"
                   />
                 </Link>
               </div>

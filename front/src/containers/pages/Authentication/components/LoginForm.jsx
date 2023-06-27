@@ -40,7 +40,7 @@ export const LoginForm = () => {
   // Se estiver logado e houver o token... navegue o usuário para página privada;
   useEffect(() => {
     if (!error && !isFetching && isLoggin && token) {
-      navigate("/exemplo");
+      navigate("/empresa");
     }
   }, [error, isFetching, isLoggin, navigate, token]);
 

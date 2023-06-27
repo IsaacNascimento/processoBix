@@ -1,4 +1,4 @@
-export const JWT = "HeptaAdmin";
+export const JWT = "BixDashboard";
 export const USERNAME = "USERNAME";
 
 export const oneMinute = 60 * 1000;
