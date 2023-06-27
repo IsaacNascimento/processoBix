@@ -2,9 +2,22 @@ from django.urls import path
 
 from . import views
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
 urlpatterns = [
     # base
     path("", views.getRoutes, name="getRoutes"),
+
+    # Auth
+    path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # Check User Permission 
+    path('user/permission', views.checkUserPermission, name='checkUserPermission'),
 
     # CRUD Empresas
     path("empresas", views.empresaList, name="empresaList"),
