@@ -3,14 +3,14 @@ import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import {
   loginReducer,
-  exemploReducer,
+  empresaReducer,
   notificacoesReducer,
   jsonplaceholderReducer
 } from "../../redux/reducers";
 
 const reducer = combineReducers({
   login: loginReducer,
-  exemplo: exemploReducer,
+  empresa: empresaReducer,
   notificacoes: notificacoesReducer,
   fakeApi: jsonplaceholderReducer,
 });

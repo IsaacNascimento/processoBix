@@ -1,9 +1,9 @@
 import axiosInstance from "./base/axiosInstance";
 
-export const exemploApi = {
-  getExemplo: async (id) => {
+export const empresaApi = {
+  getEmpresa: async (id) => {
     let status;
-    return await axiosInstance(`exemplos/${id}`, { method: "GET" })
+    return await axiosInstance(`empresa/${id}`, { method: "GET" })
       .then((response) => {
         if (response?.status === 200) {
           return {
@@ -31,7 +31,7 @@ export const exemploApi = {
   },
 
   fetchAll: async () => {
-    return await axiosInstance("exemplos", { method: "GET" })
+    return await axiosInstance("empresas", { method: "GET" })
       .then((response) => {
         return {
           response: response,
@@ -49,7 +49,7 @@ export const exemploApi = {
       });
   },
 
-  createExemplo: async (data) => {
+  createEmpresa: async (data) => {
     return await axiosInstance("exemplos/novo", { method: "POST", data: data })
       .then((response) => {
         return {
@@ -67,7 +67,7 @@ export const exemploApi = {
       });
   },
 
-  updateExemplo: async (data) => {
+  updateEmpresa: async (data) => {
     const { id } = data;
     let status;
     return await axiosInstance(`exemplos/alterar/${id}`, {
@@ -100,7 +100,7 @@ export const exemploApi = {
       });
   },
 
-  deleteExemplo: async (id) => {
+  deleteEmpresa: async (id) => {
     let status;
     return await axiosInstance(`exemplos/deletar/${id}`, { method: "DELETE" })
       .then((response) => {

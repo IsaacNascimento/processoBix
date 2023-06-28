@@ -75,12 +75,15 @@ export const authApi = {
   },
 
   refresh: async (refreshToken) => {
+    const body = { refresh: refreshToken };
+    const separeted = body.refresh.split(' ')
+    
     let status;
-    return fetch(`${API_LOCALHOST}auth/refresh`, {
+    return fetch(`${API_LOCALHOST}/token/refresh`, {
       method: "POST",
+      body: JSON.stringify({refresh: separeted[1]}),
       headers: {
         "Content-Type": "application/json",
-        Authorization: refreshToken,
       },
     })
       .then((response) => {

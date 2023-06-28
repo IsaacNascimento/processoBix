@@ -4,7 +4,7 @@ import { useAuth } from "../../shared/hooks/useAuth";
 
 // <--- COMPONENTES  --->
 import { Login } from "../pages/Authentication/Login";
-import { Exemplo } from "../pages/Empresas/Empresas";
+import { Empresa } from "../pages/Empresas/Empresas";
 import { Usuario } from "../pages/Usuarios/Usuario";
 import { ProtectedRoutes } from "./PrivateRoute";
 
@@ -13,7 +13,7 @@ const rotasPrivadas = [
     id: "empresa-route",
     title: "Rota Empresa",
     path: "/empresa",
-    component: <Exemplo />,
+    component: <Empresa />,
   },
   {
     id: "usuarios-route",

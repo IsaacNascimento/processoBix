@@ -59,7 +59,7 @@ JWT_AUTH = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(minutes=120),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
@@ -112,7 +112,6 @@ MIDDLEWARE = [
 ]
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
 CORS_ALLOWED_ORIGINS = [ "http://localhost:3000" ]
 
 ROOT_URLCONF = 'backend.urls'

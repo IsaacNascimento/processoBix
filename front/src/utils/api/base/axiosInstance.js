@@ -42,7 +42,8 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !publicPaths && isExpired) {
       const { bearerRefreshToken } = TokenService.getRefreshToken();
       const response = await authApi.refresh(bearerRefreshToken);
-
+      
+      
       if (response.status === 200) {
         reloadPage();
         const { data } = response;

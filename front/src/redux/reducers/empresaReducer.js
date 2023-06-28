@@ -1,138 +1,152 @@
 import {
-  fetchExemploRequest,
-  fetchExemploSuccess,
-  fetchExemploError,
-  createExemploRequest,
-  createExemploSuccess,
-  createExemploError,
-  deleteExemploRequest,
-  deleteExemploSuccess,
-  deleteExemploError,
-  getExemploByIdRequest,
-  getExemploByIdSuccess,
-  getExemploByIdError,
-  updateExemploRequest,
-  updateExemploSuccess,
-  updateExemploError,
-  clearExemploById,
-} from "../actions/exemploActions";
+  fetchEmpresaRequest,
+  fetchEmpresaSuccess,
+  fetchEmpresaError,
+  createEmpresaRequest,
+  createEmpresaSuccess,
+  createEmpresaError,
+  deleteEmpresaRequest,
+  deleteEmpresaSuccess,
+  deleteEmpresaError,
+  getEmpresaByIdRequest,
+  getEmpresaByIdSuccess,
+  getEmpresaByIdError,
+  updateEmpresaRequest,
+  updateEmpresaSuccess,
+  updateEmpresaError,
+  clearEmpresaById,
+} from "../actions/empresaActions";
 
 const defaultState = {
-  exemplos: [],
-  exemplo: null,
+  empresas: [],
+  empresa: null,
   isFetching: false,
   isUpdating: false,
   error: null,
 };
 
-const exemploReducer = (state = defaultState, action) => {
+const empresaReducer = (state = defaultState, action) => {
   const payload = action?.payload;
+  console.log('payload', payload);
+
   switch (action.type) {
-    case fetchExemploRequest?.type:
+
+    case fetchEmpresaRequest?.type:
       return (state = {
         ...state,
-        exemplos: null,
+        empresas: null,
         isFetching: true,
         error: null,
       });
-    case fetchExemploSuccess?.type:
+    case fetchEmpresaSuccess?.type:
       return (state = {
         ...state,
-        exemplos: payload,
+        empresas: payload,
         isFetching: false,
         error: null,
       });
-    case fetchExemploError?.type:
+    case fetchEmpresaError?.type:
       return (state = {
         ...state,
-        exemplos: null,
+        empresas: null,
         isFetching: false,
         error: payload,
       });
-    case createExemploRequest?.type:
+
+
+
+    case createEmpresaRequest?.type:
       return (state = {
         ...state,
         isUpdating: true,
         error: null,
       });
-    case createExemploSuccess?.type:
+    case createEmpresaSuccess?.type:
       return (state = {
         ...state,
         isUpdating: false,
         error: null,
       });
-    case createExemploError?.type:
+    case createEmpresaError?.type:
       return (state = {
         ...state,
         isUpdating: false,
         error: payload,
       });
-    case deleteExemploRequest?.type:
+
+
+    case deleteEmpresaRequest?.type:
       return (state = {
         ...state,
         isUpdating: true,
         error: null,
       });
-    case deleteExemploSuccess?.type:
+    case deleteEmpresaSuccess?.type:
       return (state = {
         ...state,
         isUpdating: false,
         error: null,
       });
-    case deleteExemploError?.type:
+    case deleteEmpresaError?.type:
       return (state = {
         ...state,
         isUpdating: false,
         error: payload,
       });
-    case getExemploByIdRequest?.type:
+
+
+    case getEmpresaByIdRequest?.type:
       return (state = {
         ...state,
         isFetching: true,
-        exemplo: null,
+        empresa: null,
         error: null,
       });
-    case getExemploByIdSuccess?.type:
+    case getEmpresaByIdSuccess?.type:
       return (state = {
         ...state,
         isFetching: false,
-        exemplo: payload,
+        empresa: payload,
         error: null,
       });
-    case getExemploByIdError?.type:
+    case getEmpresaByIdError?.type:
       return (state = {
         ...state,
         error: payload,
         isFetching: false,
-        exemplo: null,
+        empresa: null,
       });
-    case updateExemploRequest?.type:
+
+
+    case updateEmpresaRequest?.type:
       return (state = {
         ...state,
         isUpdating: true,
         error: null,
       });
-    case updateExemploSuccess?.type:
+    case updateEmpresaSuccess?.type:
       return (state = {
         ...state,
-        exemplo: payload,
+        empresa: payload,
         isUpdating: false,
         error: null,
       });
-    case updateExemploError?.type:
+    case updateEmpresaError?.type:
       return (state = {
         ...state,
         isUpdating: false,
         error: payload,
       });
-    case clearExemploById?.type:
+
+
+    case clearEmpresaById?.type:
       return (state = {
         ...state,
-        exemplo: null,
+        empresa: null,
       });
     default:
       return state;
   }
 };
 
-export default exemploReducer;
+export default empresaReducer;

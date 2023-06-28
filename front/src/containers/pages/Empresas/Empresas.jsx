@@ -4,37 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { ModalForm } from "./ModalForm";
 import { Spinner } from "reactstrap";
 import {
-  deleteExemplo,
-  fetchExemplos,
-  getExemploById,
-} from "../../../redux/actions/exemploActions";
+  deleteEmpresa,
+  fetchEmpresa,
+  getEmpresaById,
+} from "../../../redux/actions/empresaActions";
 
-import {
-  fetchJsonPlaceHolder
-} from "../../../redux/actions/fakeActions";
 
-export const Exemplo = () => {
+export const Empresa = () => {
   const dispatch = useDispatch();
-  const isFetching = useSelector((store) => store.exemplo?.isFetching);
-  const isUpdating = useSelector((store) => store.exemplo?.isUpdating);
-  const exemplos = useSelector((store) => store.fakeApi?.items);
+  const isFetching = useSelector((store) => store.empresa?.isFetching);
+  const isUpdating = useSelector((store) => store.empresa?.isUpdating);
+  const empresas = useSelector((store) => store.empresa?.empresas);
 
   useEffect(() => {
-    dispatch((fetchJsonPlaceHolder()));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchExemplos());
+    dispatch(fetchEmpresa());
   }, [dispatch, isUpdating]);
 
   const deleteItem = async (item) => {
     const id = item?.id;
-    await dispatch(deleteExemplo(id));
+    await dispatch(deleteEmpresa(id));
   };
 
   const getItemById = (item) => {
     const id = item?.id;
-    dispatch(getExemploById(id));
+    dispatch(getEmpresaById(id));
   };
 
   return (
@@ -47,15 +40,15 @@ export const Exemplo = () => {
         <div className="page">
           <div className="header">
             <div className="row">
-              <h4 className="titulo col-md-12">Tabela Exemplo</h4>
+              <h4 className="titulo col-md-12">Tabela Empresa</h4>
               <p className="descricao">
-                Examplo de fetch data para renderizar na tabela{" "}
+                Listagem das Empresas Cadastradas {" "}
               </p>
             </div>
           </div>
           <ReactTableBase
             // array de objetos
-            items={exemplos}
+            items={empresas}
             // funcao que remove um item
             removeItem={deleteItem}
             // chamada a API para pegar um item pelo id

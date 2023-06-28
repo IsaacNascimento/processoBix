@@ -22,7 +22,7 @@ const getToken = () => {
 
 const getRefreshToken = () => {
   const user = getSession();
-  const refreshToken = user ? user.refresh_token.token : null;
+  const refreshToken = user ? user.refresh : null;
   return { refreshToken, bearerRefreshToken: `Bearer ${refreshToken}` };
 };
 

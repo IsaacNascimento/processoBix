@@ -3,17 +3,17 @@ import { Modal, ModalBody, ModalHeader, Spinner } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  clearExemploById,
-  createExemplo,
-  updateExemplo,
-} from "../../../redux/actions/exemploActions";
+  clearEmpresaById,
+  createEmpresa,
+  updateEmpresa,
+} from "../../../redux/actions/empresaActions";
 import { useEffect } from "react";
 
 export const ModalForm = ({ state, handleModal, ...args }) => {
   const dispatch = useDispatch();
-  const isFetching = useSelector((store) => store.exemplo.isFetching);
-  const isUpdating = useSelector((store) => store.exemplo.isUpdating);
-  const itemById = useSelector((store) => store.exemplo.exemplo?.data);
+  const isFetching = useSelector((store) => store.empresa.isFetching);
+  const isUpdating = useSelector((store) => store.empresa.isUpdating);
+  const itemById = useSelector((store) => store.empresa.empresa?.data);
 
   const {
     register,
@@ -24,13 +24,13 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
   } = useForm();
 
   useEffect(() => {
-    // Popular campo do Modal para editar exemplo
+    // Popular campo do Modal para editar empresa
     if (itemById && !isFetching && !isUpdating) {
       for (let campo in itemById) {
         setValue(campo, itemById[campo]);
       }
     }
-    // Limpar campo do Modal para novo exemplo
+    // Limpar campo do Modal para novo empresa
     if (!itemById) {
       reset();
     }
@@ -39,7 +39,7 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
   // Limpar o estado toda vez que o modal for fechado
   useEffect(() => {
     if (!state) {
-      dispatch(clearExemploById());
+      dispatch(clearEmpresaById());
     }
   }, [dispatch, state]);
 
@@ -48,20 +48,20 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
     const { nome, status } = values;
 
     if (itemById) {
-      // Atualiza Exemplo
+      // Atualiza empresa
       const id = itemById?.id;
-      dispatch(updateExemplo({ id, nome, status }));
+      dispatch(updateEmpresa({ id, nome, status }));
     } else {
-      // Cria Exemplo
+      // Cria empresa
       const id = Math.floor(Math.random() * 10000000);
-      dispatch(createExemplo({ id, nome, status }));
+      dispatch(createEmpresa({ id, nome, status }));
       handleModal();
     }
   };
 
   const Titulo = () => {
     if (!itemById) {
-      return <div>Criar Exemplo</div>;
+      return <div>Criar Empresa</div>;
     }
     return (
       <div>
@@ -104,7 +104,7 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
 
                   <div className="mt-2 col-md-12 my-3">
                     <div className="m-0">
-                      <h6>Status do exemplo: </h6>
+                      <h6>Status do empresa: </h6>
                     </div>
                     <input
                       type="checkbox"
