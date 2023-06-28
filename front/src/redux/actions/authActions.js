@@ -1,11 +1,9 @@
 import { createAction } from "@reduxjs/toolkit";
-import dayjs from "dayjs";
-import jwt_decode from "jwt-decode";
 
 import LogoutUser from "../../shared/hooks/logoutUser";
 import { authApi } from "../../utils/api/authApi";
 import TokenService from "../../utils/api/base/tokenServicer";
-import { publicPaths } from "../../utils/constants";
+
 import { displayError } from "./notificacoesActions";
 
 export const loginRequest = createAction("LOGIN_REQUEST");
@@ -42,29 +40,6 @@ export const login = (username, password) => async (dispatch) => {
     }
   } catch (error) {
     dispatch(loginError(error));
-    console.log(error);
-  }
-};
-
-export const isLogado = () => async (dispatch) => {
-  const token = TokenService.getToken();
-  const user = jwt_decode(token);
-  const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-
-  try {
-    dispatch(isLogadoRequest());
-    const data = await authApi.isLogado();
-    // Se o status code for 401, estiver em rotas privadas e o token não tiver expirado
-    // Ou data for undefined dê o Logout no usuário;
-    if (
-      (data?.status === 401 && !publicPaths && !isExpired) ||
-      data === undefined
-    ) {
-      LogoutUser();
-    }
-    dispatch(isLogadoSuccess(data));
-  } catch (error) {
-    dispatch(isLogadoError(error));
     console.log(error);
   }
 };

@@ -48,39 +48,6 @@ export const authApi = {
         }
       })
   },
-  isLogado: async () => {
-    return await axiosInstance("auth/logado", { method: "GET" })
-      .then((response) => {
-        // console.log(response);
-        if (response.status === 200) {
-          return {
-            response: response,
-            expiresIn: response?.data?.vida_token,
-            isLoggin: response?.data?.isLoggin,
-            status: response?.status,
-            message: response?.statusText,
-          };
-        }
-
-        const res = response?.response;
-        return {
-          res,
-          message: res?.data?.detail?.mensagem,
-          status: res?.status,
-          isLoggin: false,
-        };
-      })
-      .catch((reason) => {
-        if (reason?.response?.status === 401) {
-          return {
-            response: reason?.response,
-            isLoggin: reason?.response?.data?.detail?.isLoggin,
-            status: reason?.response?.status,
-            message: reason?.response?.statusText,
-          };
-        }
-      });
-  },
 
   logout: async () => {
     const token = TokenService.getToken();

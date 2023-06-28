@@ -2,9 +2,6 @@ import {
   loginRequest,
   loginSuccess,
   loginError,
-  isLogadoRequest,
-  isLogadoSuccess,
-  isLogadoError,
   logoutRequest,
   logoutSuccess,
   logoutError,
@@ -48,24 +45,6 @@ const loginReducer = (state = defaultState, action) => {
         isFetching: false,
         isLoggin: false,
         error: payload,
-      });
-    case isLogadoRequest?.type:
-      return (state = {
-        ...state,
-        user: payload,
-        isFetching: true,
-      });
-    case isLogadoSuccess?.type:
-      return (state = {
-        ...state,
-        user: payload,
-        isFetching: false,
-        isLoggin: payload?.isLoggin,
-      });
-    case isLogadoError?.type:
-      return (state = {
-        ...state,
-        error: action,
       });
     case logoutRequest?.type:
       return (state = {
