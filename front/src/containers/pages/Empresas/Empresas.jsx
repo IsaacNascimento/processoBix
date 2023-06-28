@@ -9,11 +9,19 @@ import {
   getExemploById,
 } from "../../../redux/actions/exemploActions";
 
+import {
+  fetchJsonPlaceHolder
+} from "../../../redux/actions/fakeActions";
+
 export const Exemplo = () => {
   const dispatch = useDispatch();
   const isFetching = useSelector((store) => store.exemplo?.isFetching);
   const isUpdating = useSelector((store) => store.exemplo?.isUpdating);
-  const exemplos = useSelector((store) => store.exemplo?.exemplos?.data);
+  const exemplos = useSelector((store) => store.fakeApi?.items);
+
+  useEffect(() => {
+    dispatch((fetchJsonPlaceHolder()));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchExemplos());

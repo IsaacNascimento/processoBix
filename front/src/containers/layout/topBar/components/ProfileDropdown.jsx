@@ -7,16 +7,18 @@ import {
 } from "reactstrap";
 import { USERNAME } from "../../../../utils/constants";
 import userProfile from "../../../../shared/images/userProfile.png";
+import adminUserProfile from "../../../../shared/images/adminUserProfile.png";
 import * as FiIcon from "react-icons/fi";
 import { DropItem } from "./DropItem";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../../redux/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserPermission, logout } from "../../../../redux/actions/authActions";
 
 export const ProfileDropdown = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState({});
   const [isDrop, setIsDrop] = useState(false);
+  const isAdmin = useSelector((store) => store.login?.isAdmin?.isAdmin);
   
   const handleDropdown = () => {
     setIsDrop((prev) => !prev);
@@ -27,6 +29,10 @@ export const ProfileDropdown = () => {
     const names = local ? local?.split(".") : "";
     setUserName(names);
   }, []);
+
+  useEffect(() => {
+    dispatch(checkUserPermission());
+  }, [dispatch]);
 
   return (
     <>
@@ -47,7 +53,7 @@ export const ProfileDropdown = () => {
                   }
                 }}
                 className="rounded-circle header-profile-user"
-                src={userProfile}
+                src={isAdmin ? adminUserProfile : userProfile}
                 alt="user Profile img"
               />
               <span

@@ -8,6 +8,8 @@ import { FileUpload } from "primereact/fileupload";
 import { FilterMatchMode } from "primereact/api";
 import PropTypes from "prop-types";
 import { Dialog } from "primereact/dialog";
+import { useSelector } from "react-redux";
+
 
 const ComponentDefaultForm = () => {
   return <></>;
@@ -30,6 +32,8 @@ export const ReactTableBase = ({
   const [isDelete, setIsDelete] = useState(false);
   const [deleteItem, setDeleteItem] = useState({});
   const [globalFilterValue, setGlobalFilterValue] = useState("");
+  const isAdmin = useSelector((store) => store.login?.isAdmin?.isAdmin);
+
 
   // Validar Array recebido para gerar as colunas da tabela de forma dinâmica
   // Pegar todas as chaves de um objeto e joga para dentro um array que será usado para as colunas da tabela
@@ -183,13 +187,19 @@ export const ReactTableBase = ({
   const leftToolBarTemplate = () => {
     return (
       <>
-        <Button
-          label="Novo"
-          icon="pi pi-plus"
-          className="p-button-success p-2"
-          onClick={handleModal}
-        />
-        <Formulario state={isOpen} handleModal={handleModal} />
+        {isAdmin ? (
+          <>
+            <Button
+              label="Novo"
+              icon="pi pi-plus"
+              className="p-button-success p-2"
+              onClick={handleModal}
+            />
+            <Formulario state={isOpen} handleModal={handleModal} />
+          </>
+        ) : (
+          <></>
+        )}
       </>
     );
   };
@@ -206,12 +216,16 @@ export const ReactTableBase = ({
           className="p-2 p-d-inline-block"
         />
         <div className="mx-2"></div>
-        <Button
-          label="Exportar"
-          icon="pi pi-upload"
-          className="p-button-help p-2"
-          onClick={() => {}}
-        />
+        {isAdmin ? (
+          <Button
+            label="Exportar"
+            icon="pi pi-upload"
+            className="p-button-help p-2"
+            onClick={() => {}}
+          />
+        ) : (
+          <></>
+        )}
       </>
     );
   };
@@ -249,11 +263,15 @@ export const ReactTableBase = ({
                   style={{ minWidth: "12rem" }}
                 />
               ))}
-              <Column
-                header="Ação"
-                body={editarRemoverItem}
-                style={{ minWidth: "10rem" }}
-              />
+              {isAdmin ? (
+                <Column
+                  header="Ação"
+                  body={editarRemoverItem}
+                  style={{ minWidth: isAdmin ? "10rem" : "0rem" }}
+                />
+              ) : (
+                <></>
+              )}
             </DataTable>
           </div>
         </div>

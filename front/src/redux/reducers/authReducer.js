@@ -8,6 +8,9 @@ import {
   logoutRequest,
   logoutSuccess,
   logoutError,
+  checkUserPermissionRequest,
+  checkUserPermissionSuccess,
+  checkUserPermissionError
 } from "../actions/authActions";
 
 const defaultState = {
@@ -15,12 +18,12 @@ const defaultState = {
   isFetching: false,
   isLoggin: false,
   error: null,
+  isAdmin: null,
 };
 
 const loginReducer = (state = defaultState, action) => {
   const payload = action?.payload;
-  // console.log("payload: ", payload);
-  const isToken = payload?.access_token;
+  const isToken = payload?.access;
   switch (action?.type) {
     case loginRequest?.type:
       return (state = {
@@ -86,6 +89,28 @@ const loginReducer = (state = defaultState, action) => {
         isFetching: false,
         error: payload,
       });
+
+    case checkUserPermissionRequest?.type:
+      return (state = {
+        ...state,
+        isAdmin: payload,
+        user: payload,
+        isFetching: true,
+      });
+    case checkUserPermissionSuccess?.type:
+      return (state = {
+        ...state,
+        isAdmin: payload,
+        user: payload,
+        isFetching: false,
+        isLoggin: payload?.isLoggin,
+      });
+    case checkUserPermissionError?.type:
+      return (state = {
+        ...state,
+        error: action,
+      });
+
     default:
       return state;
   }

@@ -14,10 +14,10 @@ export const LoginForm = () => {
   const [isPassword, setIsPassword] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const error = useSelector((store) => store.login?.error);
+  const error = useSelector((store) => store.login?.error?.detail);
   const isFetching = useSelector((store) => store.login?.isFetching);
   const isLoggin = useSelector((store) => store.login?.isLoggin);
-  const token = useSelector((store) => store.login?.user?.access_token?.token);
+  const token = useSelector((store) => store.login?.user?.access);
 
   const {
     register,
@@ -58,32 +58,32 @@ export const LoginForm = () => {
     <React.Fragment>
       <form id="form-login" className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__form-group">
-          <span className="form__form-group-label">Nome do Usuário</span>
+          <span className="form__form-group-label">User Name</span>
 
           <input
             {...register("username", { required: true })}
             name="username"
             className="input-modal-form"
-            placeholder="Digite o seu usuário"
+            placeholder="Type your username"
             required
             disabled={isFetching}
             type={"text" || "email"}
           />
           {errors.username && (
             <span className="span-validation">
-              O campo usuário é obrigatório
+              User field is required
             </span>
           )}
         </div>
 
         <div className="form__form-group">
-          <span className="form__form-group-label">Senha</span>
+          <span className="form__form-group-label">Password</span>
           <div className="form__form-group-field">
             <input
               {...register("password", { required: true })}
               name="password"
               className="input-modal-form"
-              placeholder="Digite a sua senha"
+              placeholder="Type your Password"
               disabled={isFetching}
               required
               type={isPassword ? "password" : "text"}
@@ -114,10 +114,10 @@ export const LoginForm = () => {
           type="submit"
           disabled={isFetching}
         >
-          {isFetching ? "Carregando..." : "Entrar"}
+          {isFetching ? "IsFetching..." : "Login"}
         </button>
       </form>
-      <p className="acesso-restrito">Acesso Restrito</p>
+      <p className="acesso-restrito">Restricted access</p>
     </React.Fragment>
   );
 };

@@ -5,11 +5,12 @@ import TokenService from "./base/tokenServicer";
 export const authApi = {
   // retornar status e de acordo com a resposta tomar as
   login: async (username, password) => {
+    const body = {username: username, password: password}
     let status;
-    return fetch(`${API_LOCALHOST}auth/login`, {
-      body: `username=${username}&password=${password}`,
+    return fetch(`${API_LOCALHOST}/login`, {
+      body: JSON.stringify(body),
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
         status = response.status;
@@ -22,6 +23,30 @@ export const authApi = {
       .catch((error) => {
         return error;
       });
+  },
+  checkUserPermission: async () => {
+    return await axiosInstance("user/permission", { method: "GET" })
+      .then((response) => {
+        if (response.status === 200) {
+          const data = response.data;
+          return {
+            email: data?.email,
+            id: data?.id,
+            isAdmin: data?.isAdmin,
+            username: data?.username,
+            status: response.status,
+            isLoggin: true,
+          }
+        }
+
+        const data = response.data;
+        return {
+          data,
+          message: data?.detail,
+          status: response.status,
+          isLoggin: false,
+        }
+      })
   },
   isLogado: async () => {
     return await axiosInstance("auth/logado", { method: "GET" })

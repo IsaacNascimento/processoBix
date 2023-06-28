@@ -31,7 +31,7 @@ export const Login = () => {
                     <div className="account__card">
                       <div className="account__head">
                         <h3 className="account_title">
-                          Bem vindo à
+                          Welcome to the
                           <br />
                           <span className="account__logo">
                             {" "}
@@ -41,7 +41,7 @@ export const Login = () => {
                           </span>
                         </h3>
                         <h4 className="account__subhead">
-                          Área administrativa
+                           Administrative Area
                         </h4>
                       </div>
                       <LoginForm />

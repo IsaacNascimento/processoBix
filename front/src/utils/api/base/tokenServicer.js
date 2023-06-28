@@ -16,7 +16,7 @@ const removeUser = () => {
 
 const getToken = () => {
   const user = getSession();
-  const token = user ? user.access_token.token : null;
+  const token = user ? user.access : null;
   return token;
 };
 

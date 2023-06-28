@@ -29,6 +29,21 @@ const rotasPrivadas = [
   },
 ];
 
+const rotasPublicas = [
+  {
+    id: "root-route",
+    title: "Root route",
+    path: "/",
+    component: <Login />
+  },
+  {
+    id: "login-route",
+    title: "Login Route",
+    path: "/login",
+    component: <Login />,
+  },
+];
+
 export const Router = () => {
   const isAuth = useAuth();
 
@@ -37,16 +52,9 @@ export const Router = () => {
       <Routes>
         {/*  --------- ROTAS PUBLICAS ---------  */}
 
-        <Route
-          exact
-          path="/"
-          element={!isAuth ? <Login /> : <Navigate to={"/empresa"} />}
-        />
-        <Route
-          exact
-          path="/login"
-          element={!isAuth ? <Login /> : <Navigate to={"/empresa"} />}
-        />
+        {rotasPublicas.map((item, key) => (
+          <Route key={item.id} path={item.path} element={!isAuth ? item.component : <Navigate to={"/empresa"}/>}/>
+        ))}
 
         {/*  --------- ROTAS PRIVADAS ---------  */}
 

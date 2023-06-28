@@ -15,7 +15,7 @@ def getRoutes(request):
         # Authentication
         {
             "Auth": [
-                {"token": "token"},
+                {"token": "login"},
                 {"Refresh-token": "token/refresh"},
             ],
         },

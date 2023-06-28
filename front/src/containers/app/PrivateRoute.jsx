@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import { isLogado } from "../../redux/actions/authActions";
+import { checkUserPermission } from "../../redux/actions/authActions";
 import { useAuth } from "../../shared/hooks/useAuth";
 import { publicPaths } from "../../utils/constants";
 import { Layout } from "../layout";
@@ -14,7 +14,7 @@ export const ProtectedRoutes = () => {
   // Força uma chamada de Verificação de Login assim que entra na aplicação;
   useEffect(() => {
     if(isAuth && !publicPaths) {
-      dispatch(isLogado());
+      dispatch(checkUserPermission());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);

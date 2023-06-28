@@ -24,6 +24,10 @@ export const refreshTokenRequest = createAction("REFRESH_TOKEN_REQUEST");
 export const refreshTokenSuccess = createAction("REFRESH_TOKEN_SUCCESS");
 export const refreshTokenError = createAction("REFRESH_TOKEN_ERROR");
 
+export const checkUserPermissionRequest = createAction("CHECK_USER_PERMISSION_REQUEST");
+export const checkUserPermissionSuccess = createAction("CHECK_USER_PERMISSION_SUCCESS");
+export const checkUserPermissionError = createAction("CHECK_USER_PERMISSION_ERROR");
+
 export const login = (username, password) => async (dispatch) => {
   try {
     dispatch(loginRequest());
@@ -32,8 +36,10 @@ export const login = (username, password) => async (dispatch) => {
       delete data?.status;
       TokenService.setUser(data);
       dispatch(loginSuccess(data));
+    } else {
+      dispatch(loginError(data));
+      console.log(data);
     }
-    // console.log(data);
   } catch (error) {
     dispatch(loginError(error));
     console.log(error);
@@ -98,3 +104,29 @@ export const refreshToken = () => async (dispatch) => {
     }
   }
 };
+
+export const checkUserPermission = () => async (dispatch) => {
+  const token = TokenService.getToken();
+
+  if (token) {
+    try {
+      dispatch(checkUserPermissionRequest());
+      const data = await authApi.checkUserPermission();
+    
+      if (data.status === 200 && data?.isLoggin) {
+        delete data?.status;
+        dispatch(checkUserPermissionSuccess(data));
+      } else {
+        console.log(data);
+        dispatch(displayError(data));
+        checkUserPermissionError(data);
+      }
+    } catch (error) {
+      console.log(error);
+      dispatch(displayError(error));
+      checkUserPermissionError(error);
+    }
+  }
+};
+
+
