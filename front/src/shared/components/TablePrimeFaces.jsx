@@ -33,6 +33,7 @@ export const ReactTableBase = ({
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const isAdmin = useSelector((store) => store.login?.isAdmin?.isAdmin);
 
+  console.log(items);
 
 
   // Validar Array recebido para gerar as colunas da tabela de forma dinâmica
@@ -41,17 +42,18 @@ export const ReactTableBase = ({
   if (itemsValidated) {
     const objectFromArr = itemsValidated[0] || {};
 
-    if (objectFromArr["data_demissao"] === null) {delete objectFromArr["data_demissao"]} 
-    // if (objectFromArr["empresa"] === null) {delete objectFromArr["empresa"]}   
+    if (objectFromArr["data_demissao"] === null) {
+      delete objectFromArr["data_demissao"];
+    }
 
     Object?.keys(objectFromArr || {})?.forEach((chaveObjeto) => {
-
       const filtrarColunas =
         chaveObjeto !== "id" &&
         chaveObjeto !== "data_criacao" &&
         chaveObjeto !== "cep" &&
-        chaveObjeto !== "cnpj"
-        
+        chaveObjeto !== "empresa" &&
+        chaveObjeto !== "cnpj";
+
       if (filtrarColunas) {
         columnNames.push(chaveObjeto);
       }
@@ -200,13 +202,13 @@ export const ReactTableBase = ({
   const leftToolBarTemplate = () => {
     return (
       <>
-            <Button
-              label="Novo"
-              icon="pi pi-plus"
-              className="p-button-success p-2"
-              onClick={handleModal}
-            />
-            <Formulario isModalOpen={isOpen} handleModal={handleModal} />
+        <Button
+          label="Novo"
+          icon="pi pi-plus"
+          className="p-button-success p-2"
+          onClick={handleModal}
+        />
+        <Formulario isModalOpen={isOpen} handleModal={handleModal} />
       </>
     );
   };
@@ -223,12 +225,12 @@ export const ReactTableBase = ({
           className="p-2 p-d-inline-block"
         />
         <div className="mx-2"></div>
-          <Button
-            label="Exportar"
-            icon="pi pi-upload"
-            className="p-button-help p-2"
-            onClick={() => {}}
-          />
+        <Button
+          label="Exportar"
+          icon="pi pi-upload"
+          className="p-button-help p-2"
+          onClick={() => {}}
+        />
       </>
     );
   };
@@ -238,13 +240,15 @@ export const ReactTableBase = ({
       <div className="col-md-12">
         <div className="page">
           <div className="card_style">
-            {isAdmin ? 
-            <Toolbar
-              className="p-mb-4"
-              left={leftToolBarTemplate}
-              right={rightToolbarTemplate}
-            ></Toolbar>
-            : <></>}
+            {isAdmin ? (
+              <Toolbar
+                className="p-mb-4"
+                left={leftToolBarTemplate}
+                right={rightToolbarTemplate}
+              ></Toolbar>
+            ) : (
+              <></>
+            )}
             <div className="my-4"></div>
             <DataTable
               value={itemsValidated}
@@ -268,6 +272,14 @@ export const ReactTableBase = ({
                   style={{ minWidth: "12rem" }}
                 />
               ))}
+               {itemsValidated[0]?.empresa && (
+                <Column
+                  key={"empresa"}
+                  field={"empresa"}
+                  header={"Empresa"}
+                  style={{ minWidth: "12rem" }}
+                />
+              )} 
               {isAdmin ? (
                 <Column
                   header="Ação"

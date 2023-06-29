@@ -9,7 +9,6 @@ import {
 } from "../../../redux/actions/funcionarioActions";
 import { useEffect } from "react";
 import { fetchEmpresa } from "../../../redux/actions/empresaActions";
-// import { cnpjMask } from "../../../utils/helpers";
 
 export const ModalForm = ({ isModalOpen, handleModal, ...args }) => {
   const dispatch = useDispatch();
@@ -52,18 +51,21 @@ export const ModalForm = ({ isModalOpen, handleModal, ...args }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, isModalOpen]);
 
-  const onSubmit = (value) => {
+
+  const onSubmit =  (value) => {
     const values = value;
+    console.log(values);
 
     if (itemById) {
       // Atualiza Funcionário
       // const id = itemById?.id;
       dispatch(updateFuncionario(values));
       handleModal();
+ 
     } else {
       // Cria Funcionário
       dispatch(createFuncionario(values));
-      handleModal();
+      // handleModal();
     }
   };
 
@@ -220,7 +222,7 @@ export const ModalForm = ({ isModalOpen, handleModal, ...args }) => {
       
                     <select className="input-modal-form"  {...register("empresa", { required: true })}>
                       {empresas?.map((empresa, key) => (
-                        <option value={empresa?.id}>{empresa?.nome}</option>
+                        <option key={empresa.id} value={empresa.nome}>{empresa?.nome}</option>
                       ))}
                     </select>
                

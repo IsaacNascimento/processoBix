@@ -7,7 +7,9 @@ class EmpresaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class FuncionarioSerializer(serializers.ModelSerializer):
-    # empresa_name = serializers.CharField(source='category.name')
+    # empresa = EmpresaSerializer()
+    empresa = serializers.SlugRelatedField(queryset=Empresa.objects.all(), slug_field='nome')
+    
     class Meta:
         model = Funcionario
         fields = '__all__'

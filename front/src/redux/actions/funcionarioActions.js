@@ -65,7 +65,7 @@ export const createFuncionario = ({ ...values }) => async (dispatch) => {
       dispatch(createFuncionarioSuccess(data));
     } else {
       dispatch(displayError(`Ocorreu um erro ${data} ao criar Funcionário`));
-      dispatch(displayError(`Ocorreu um erro ${data}`));
+      dispatch(createFuncionarioError(data));
     }
   } catch (error) {
     console.log(error);
