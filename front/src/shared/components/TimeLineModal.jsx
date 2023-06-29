@@ -48,7 +48,7 @@ export const TimeLineModal = ({
       color: "#9C27B0",
     },
     {
-      status: funcionario?.data_demissao ? "Demissão" : `Ativo no(a) ${funcionario?.empresa}`,
+      status: funcionario?.data_demissao ? "Fim de Contrato" : `Ativo no(a) ${funcionario?.empresa}`,
       date: funcionario?.data_demissao || 'Usuário Ativo',
       color: "#9C27B0",
     },
