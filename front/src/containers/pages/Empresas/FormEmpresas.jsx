@@ -8,12 +8,12 @@ const optionsMocukp = [
   { uid: "fail", title: "Esperando" },
 ];
 
-export const FormExemplo = () => {
+export const FormEmpresa = () => {
   return (
     <React.Fragment>
       <Row>
         <Col lg={10} sm={8}>
-          <h1>Criar Exemplo</h1>
+          <h1>Nova Empresa</h1>
         </Col>
         <Col lg={2} sm={4}>
           <Link to={-1}>
@@ -34,19 +34,19 @@ export const FormExemplo = () => {
           <div className="row">
             <div className="mt-2 col-md-7">
               <div className="m-2">
-                <h6>Nome do exemplo: </h6>
+                <h6>Nome Empresa: </h6>
               </div>
               <Input type="text" placeholder="Nome" />
             </div>
             <div className="mt-2 col-md-7">
               <div className="m-2">
-                <h6>Data do exemplo: </h6>
+                <h6>Data da Empresa: </h6>
               </div>
               <Input type="date" placeholder="Nome" />
             </div>
             <div className="mt-2 col-md-7">
               <div className="m-2">
-                <h6>Status do exemplo: </h6>
+                <h6>Status da Empresa: </h6>
               </div>
               <Input className="mb-5" type="select" placeholder="Nome">
                 <option value="">Selecione</option>

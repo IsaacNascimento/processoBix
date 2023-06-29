@@ -15,7 +15,7 @@ export const sideBarDataItems = [
     cName: "nav-text",
     subMenu: [
       { title: "Empresas", path: "/empresa" },
-      { title: "Funcionários", path: "/funcionários" }
+      { title: "Funcionários", path: "/funcionarios" }
     ],
   },
   {

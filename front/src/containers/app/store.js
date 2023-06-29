@@ -5,7 +5,8 @@ import {
   loginReducer,
   empresaReducer,
   notificacoesReducer,
-  jsonplaceholderReducer
+  jsonplaceholderReducer,
+  funcionarioReducer
 } from "../../redux/reducers";
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   empresa: empresaReducer,
   notificacoes: notificacoesReducer,
   fakeApi: jsonplaceholderReducer,
+  funcionario: funcionarioReducer,
 });
 
 const store = configureStore({

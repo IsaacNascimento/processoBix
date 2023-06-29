@@ -51,12 +51,13 @@ export const getEmpresaById = (id) => async (dispatch) => {
   }
 };
 
-export const createEmpresa = (form) => async (dispatch) => {
+export const createEmpresa = ({ ...values }) => async (dispatch) => {
+  console.log('form', values);
   try {
     dispatch(createEmpresaRequest());
-    const data = await empresaApi.createEmpresa(form);
+    const data = await empresaApi.createEmpresa(values);
     if (data?.status === 201) {
-      dispatch(displaySuccess("Empresa incluído com sucesso!"));
+      dispatch(displaySuccess("Empresa incluída com sucesso!"));
     } else {
       dispatch(displayError(`Ocorreu um erro ${data} ao criar Empresa`));
     }
@@ -72,8 +73,8 @@ export const updateEmpresa = (data) => async (dispatch) => {
   try {
     dispatch(updateEmpresaRequest());
     const value = await empresaApi.updateEmpresa(data);
-    if (value?.status === 202) {
-      dispatch(displaySuccess("Empresa editado com sucesso!"));
+    if (value?.status === 204) {
+      dispatch(displaySuccess("Empresa editada com sucesso!"));
     } else {
       dispatch(
         displayError(
@@ -94,7 +95,7 @@ export const deleteEmpresa = (id) => async (dispatch) => {
     dispatch(deleteEmpresaRequest());
     const data = await empresaApi.deleteEmpresa(id);
     if (data?.status === 204) {
-      dispatch(displaySuccess("Empresa deletado com sucesso!"));
+      dispatch(displaySuccess("Empresa deletada com sucesso!"));
     } else {
       dispatch(
         displayError(`Ocorreu um erro ${data} ao deletar o Empresa ${id}`)

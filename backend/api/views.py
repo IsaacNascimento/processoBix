@@ -2,6 +2,7 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from rest_framework import status
 
 # Modules
 from .serializers import EmpresaSerializer, FuncionarioSerializer
@@ -53,7 +54,10 @@ def getRoutes(request):
 def checkUserPermission(request):
     user = request.user
     token = extract_jwt_token(request.headers['Authorization'])
-    userToken = jwt_payload_handler(user, token)
+    try:
+        userToken = jwt_payload_handler(user, token)
+    except:
+        return Response({"Error": "Requisição não encontrada"}, status=status.HTTP_404_NOT_FOUND)
     
     return Response(userToken)
 
@@ -61,15 +65,23 @@ def checkUserPermission(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def empresaList(request):
-   empresa = Empresa.objects.all()
-   serializer = EmpresaSerializer(empresa, many=True)
+    try:
+        empresa = Empresa.objects.all()
+    except:
+        return Response({"Error": "Requisição não encontrada"}, status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = EmpresaSerializer(empresa, many=True)
 
-   return Response(serializer.data)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def empresaDetalhe(request, pk):
-    empresa = Empresa.objects.get(id=pk)
+    try:
+        empresa = Empresa.objects.get(id=pk)
+    except:
+        return Response({"Error": "Empresa não encontrada"}, status=status.HTTP_404_NOT_FOUND)
+
     serializer = EmpresaSerializer(empresa, many=False)
     return Response(serializer.data)
 
@@ -78,30 +90,47 @@ def empresaDetalhe(request, pk):
 @permission_classes([IsAdminUser])
 def createEmpresa(request):
     serializer = EmpresaSerializer(data=request.data)
+
+    if not serializer.is_valid(raise_exception=False):
+            return Response({"Error": "Error ao criar empresa"}, status=status.HTTP_400_BAD_REQUEST)
     
     if serializer.is_valid():
         serializer.save()
-        
-    return Response(serializer.data)
+
+    return Response({
+        "data": serializer.data, 
+       }, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def updateEmpresa(request, pk):
-    empresa = Empresa.objects.get(id=pk)
+    try:
+        empresa = Empresa.objects.get(id=pk)
+    except:
+        return Response({"Error": "Empresa não encontrada"}, status=status.HTTP_404_NOT_FOUND)
+    
     serializer = EmpresaSerializer(instance= empresa,data=request.data)
+
+    if not serializer.is_valid(raise_exception=False):
+            return Response({"Error": "Error ao atualizar empresa"}, status=status.HTTP_400_BAD_REQUEST)
     
     if serializer.is_valid():
         serializer.save()
-    return Response(serializer.data)
+
+    return Response({"Message": "Item atualizado com sucesso"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deleteEmpresa(request, pk):
-    empresa = Empresa.objects.get(id=pk)
+    try:
+        empresa = Empresa.objects.get(id=pk)
+    except:
+        return Response({"Error": "Empresa não encontrada"}, status=status.HTTP_404_NOT_FOUND)
+    
     empresa.delete()
 
-    return Response({'message':'Empresa deletada com sucesso', 'deleted': True})
+    return Response({'message':'Empresa deletada com sucesso', 'deleted': True}, status=status.HTTP_204_NO_CONTENT)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -111,47 +140,68 @@ def deleteEmpresa(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def funcionarioList(request):
-    funcionario = Funcionario.objects.all()
+    try:
+        funcionario = Funcionario.objects.all()
+    except:
+        return Response({"Error": "Requisição não encontrada"}, status=status.HTTP_404_NOT_FOUND)
+    
     serializer = FuncionarioSerializer(funcionario, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def funcionarioDetalhe(request, pk):
-    funcionario = Funcionario.objects.get(id=pk)
+    try:
+        funcionario = Funcionario.objects.get(id=pk)
+    except:
+        return Response({"Error": "Funcionário não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     serializer = FuncionarioSerializer(funcionario, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def createFuncionario(request):
-    print(request.data)
     serializer = FuncionarioSerializer(data=request.data)
 
     print(serializer.is_valid())
+
+    if not serializer.is_valid(raise_exception=False):
+            return Response({"Error": "Error ao criar Funcionário"}, status=status.HTTP_400_BAD_REQUEST)
     
     if serializer.is_valid():
         serializer.save()
         
-    return Response(serializer.data)
+    return Response(status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def updateFuncionario(request, pk):
-    funcionario = Funcionario.objects.get(id=pk)
+    try:
+        funcionario = Funcionario.objects.get(id=pk)
+    except:
+        return Response({"Error": "Funcionário não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     serializer = FuncionarioSerializer(instance= funcionario ,data=request.data)
+
+    if not serializer.is_valid(raise_exception=False):
+            return Response({"Error": "Error ao atualizar funcionário"}, status=status.HTTP_400_BAD_REQUEST)
     
     if serializer.is_valid():
         serializer.save()
         
-    return Response(serializer.data)
+    return Response({"Message": "Item atualizado com sucesso"},status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deleteFuncionario(request, pk):
-    funcionario = Funcionario.objects.get(id=pk)
+    try:
+        funcionario = Funcionario.objects.get(id=pk)
+    except:
+        return Response({"Error": "Funcionário não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     funcionario.delete()
 
-    return Response({'message':'Funcionario deletado com sucesso', 'deleted': True})
+    return Response({'message':'Funcionário deletado com sucesso', 'deleted': True}, status=status.HTTP_204_NO_CONTENT)
 
 

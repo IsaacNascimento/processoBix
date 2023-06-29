@@ -5,7 +5,8 @@ import { useAuth } from "../../shared/hooks/useAuth";
 // <--- COMPONENTES  --->
 import { Login } from "../pages/Authentication/Login";
 import { Empresa } from "../pages/Empresas/Empresas";
-import { Usuario } from "../pages/Usuarios/Usuario";
+import { FormEmpresa } from "../pages/Empresas/FormEmpresas";
+import { Usuario } from "../pages/Funcionarios/Funcionario";
 import { ProtectedRoutes } from "./PrivateRoute";
 
 const rotasPrivadas = [
@@ -16,9 +17,15 @@ const rotasPrivadas = [
     component: <Empresa />,
   },
   {
-    id: "usuarios-route",
-    title: "Rota Usuarios",
-    path: "/usuarios",
+    id: "form-empresa-route",
+    title: "Rota Empresa Form",
+    path: "/form/empresa",
+    component: <FormEmpresa />,
+  },
+  {
+    id: "funcionarios-route",
+    title: "Rota Funcionarios",
+    path: "/funcionarios",
     component: <Usuario />,
   },
   {

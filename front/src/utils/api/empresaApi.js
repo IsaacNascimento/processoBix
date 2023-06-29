@@ -50,8 +50,9 @@ export const empresaApi = {
   },
 
   createEmpresa: async (data) => {
-    return await axiosInstance("exemplos/novo", { method: "POST", data: data })
+    return await axiosInstance("/empresa", { method: "POST", data: data })
       .then((response) => {
+        console.log('response', response);
         return {
           response: response,
           data: response?.data,
@@ -59,6 +60,7 @@ export const empresaApi = {
         };
       })
       .catch((error) => {
+        console.log('Error');
         return {
           response: error?.response,
           status: error?.response?.status,
@@ -69,9 +71,10 @@ export const empresaApi = {
 
   updateEmpresa: async (data) => {
     const { id } = data;
+
     let status;
-    return await axiosInstance(`exemplos/alterar/${id}`, {
-      method: "PUT",
+    return await axiosInstance(`update/empresa/${id}`, {
+      method: "POST",
       data: data,
     })
       .then((response) => {
@@ -83,12 +86,11 @@ export const empresaApi = {
           };
         }
 
-        const res = response?.response;
-        status = res.status;
+        status = response.status;
         return {
           response,
           status: status,
-          data: res?.data?.detail,
+          data: response.data,
         };
       })
       .catch((error) => {
@@ -102,7 +104,7 @@ export const empresaApi = {
 
   deleteEmpresa: async (id) => {
     let status;
-    return await axiosInstance(`exemplos/deletar/${id}`, { method: "DELETE" })
+    return await axiosInstance(`delete/empresa/${id}`, { method: "DELETE" })
       .then((response) => {
         status = response.status;
         return {

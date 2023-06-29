@@ -27,7 +27,6 @@ const defaultState = {
 
 const empresaReducer = (state = defaultState, action) => {
   const payload = action?.payload;
-  console.log('payload', payload);
 
   switch (action.type) {
 

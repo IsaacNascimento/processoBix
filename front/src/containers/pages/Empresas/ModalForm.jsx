@@ -8,8 +8,10 @@ import {
   updateEmpresa,
 } from "../../../redux/actions/empresaActions";
 import { useEffect } from "react";
+// import { cnpjMask } from "../../../utils/helpers";
 
-export const ModalForm = ({ state, handleModal, ...args }) => {
+
+export const ModalForm = ({ isModalOpen, handleModal, ...args }) => {
   const dispatch = useDispatch();
   const isFetching = useSelector((store) => store.empresa.isFetching);
   const isUpdating = useSelector((store) => store.empresa.isUpdating);
@@ -38,23 +40,23 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
 
   // Limpar o estado toda vez que o modal for fechado
   useEffect(() => {
-    if (!state) {
+    if (!isModalOpen && itemById) {
+      // console.log('entrou no clear campos');
       dispatch(clearEmpresaById());
     }
-  }, [dispatch, state]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, isModalOpen]);
 
   const onSubmit = (value) => {
     const values = value;
-    const { nome, status } = values;
 
     if (itemById) {
       // Atualiza empresa
-      const id = itemById?.id;
-      dispatch(updateEmpresa({ id, nome, status }));
+      // const id = itemById?.id;
+      dispatch(updateEmpresa(values));
     } else {
       // Cria empresa
-      const id = Math.floor(Math.random() * 10000000);
-      dispatch(createEmpresa({ id, nome, status }));
+      dispatch(createEmpresa( values ));
       handleModal();
     }
   };
@@ -65,14 +67,14 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
     }
     return (
       <div>
-        Editar Item <b>{itemById.nome}</b>
+        Editar <b>{itemById.nome}</b>
       </div>
     );
   };
 
   return (
     <>
-      <Modal isOpen={state} toggle={() => handleModal()}>
+      <Modal isOpen={isModalOpen} toggle={() => handleModal()}>
         {(isFetching || isUpdating) && (
           <ModalBody className="center-spinner-progress">
             <Spinner />
@@ -83,15 +85,16 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
             <ModalHeader toggle={() => handleModal()}>
               <Titulo />
             </ModalHeader>
-            <ModalBody>
+            <ModalBody >
               <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 
                 <div className="row">
-                  <div className="col-md-12 my-2">
-                    <h6>Nome Exemplo</h6>
+
+                  <div className="col-md-6 my-2">
+                    <h6>Nome Empresa</h6>
                     <input
                       {...register("nome", { required: true })}
-                      placeholder="Nome Exemplo"
+                      placeholder="Nome Empresa"
                       className="input-modal-form"
                       type="text"
                     />
@@ -102,20 +105,100 @@ export const ModalForm = ({ state, handleModal, ...args }) => {
                     )}
                   </div>
 
-                  <div className="mt-2 col-md-12 my-3">
-                    <div className="m-0">
-                      <h6>Status do empresa: </h6>
-                    </div>
+                  <div className="col-md-6 my-2">
+                    <h6>CNPJ</h6>
                     <input
-                      type="checkbox"
-                      className="select-modal-field"
-                      {...register("status")}
+                      {...register("cnpj", { required: true })}
+                      placeholder="Cnpj"
+                      className="input-modal-form"
+                      type="text"
+                      // value={cnpjMask((e) => e.target.value)}
                     />
+                    {errors.cnpj && (
+                      <span className="span-validation">
+                        O campo cnpj é obrigatório
+                      </span>
+                    )}
                   </div>
+
+                  <div className="col-md-6 my-2">
+                    <h6>Endereço</h6>
+                    <input
+                      {...register("endereco", { required: true })}
+                      placeholder="Endereço"
+                      className="input-modal-form"
+                      type="text"
+                    />
+                    {errors.endereco && (
+                      <span className="span-validation">
+                        O campo Endereço é obrigatório
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="col-md-6 my-2">
+                    <h6>CEP</h6>
+                    <input
+                      {...register("cep", { required: true })}
+                      placeholder="CEP"
+                      className="input-modal-form"
+                      type="text"
+                    />
+                    {errors.cep && (
+                      <span className="span-validation">
+                        O campo CEP é obrigatório
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="col-md-6 my-2">
+                    <h6>Telefone</h6>
+                    <input
+                      {...register("telefone", { required: true })}
+                      placeholder="Telefone"
+                      className="input-modal-form"
+                      type="text"
+                    />
+                    {errors.telefone && (
+                      <span className="span-validation">
+                        O campo Telefone é obrigatório
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="col-md-6 my-2">
+                    <h6>Email</h6>
+                    <input
+                      {...register("email", { required: true })}
+                      placeholder="Email"
+                      className="input-modal-form"
+                      type="email"
+                    />
+                    {errors.email && (
+                      <span className="span-validation">
+                        O campo Email é obrigatório
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="col-md-6 my-2">
+                    <h6>Area Atuação</h6>
+                    <input
+                      {...register("area", { required: true })}
+                      placeholder="Área de Atuação"
+                      className="input-modal-form"
+                      type="text"
+                    />
+                    {errors.area && (
+                      <span className="span-validation">
+                        O campo Área Atuação é obrigatório
+                      </span>
+                    )}
+                  </div>
+
                 </div>
 
-                <hr />
-                <div className="row">
+                <div style={{marginTop:"8px"}} className="row">
                   <div className="col-md-6 col-sm-6">
                     <button
                       className="primary-button"
