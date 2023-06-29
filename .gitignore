@@ -5,7 +5,7 @@
 # Back - Ignore
 **/backend/.env
 **/backend/venv
-**/backend/db.sqlite3
+# **/backend/db.sqlite3
 **/backend/api/__pycache__
 **/backend/api/migrations/__pycache__
 **/backend/backend/__pycache__
