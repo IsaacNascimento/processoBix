@@ -9,6 +9,7 @@ import { FilterMatchMode } from "primereact/api";
 import PropTypes from "prop-types";
 import { Dialog } from "primereact/dialog";
 import { useSelector } from "react-redux";
+import { TimeLineModal } from "./TimeLineModal";
 
 const ComponentDefaultForm = () => {
   return <></>;
@@ -27,13 +28,13 @@ export const ReactTableBase = ({
   const itemsValidated = isArray ? items : [];
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isTimeLineOpen, setTimeLine] = useState(false);
+  const [timeLineContent, setTimeLineContent] = useState({});
   const [filters, setFilters] = useState(null);
   const [isDelete, setIsDelete] = useState(false);
   const [deleteItem, setDeleteItem] = useState({});
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const isAdmin = useSelector((store) => store.login?.isAdmin?.isAdmin);
-
-  console.log(items);
 
 
   // Validar Array recebido para gerar as colunas da tabela de forma dinâmica
@@ -73,7 +74,7 @@ export const ReactTableBase = ({
   }, []);
 
   // Abri o Modal de Criar/Editar
-  const handleModal = () => {
+  const handleFormModal = () => {
     setIsOpen((prev) => !prev);
   };
 
@@ -82,8 +83,13 @@ export const ReactTableBase = ({
     if (getItemById) {
       getItemById(item);
     }
-    handleModal();
+    handleFormModal();
   };
+
+  const handleTimeLineModal = (itemSelected) => {
+    setTimeLineContent(itemSelected);
+    setTimeLine((prev) => !prev);
+  }
 
   const handleDialog = () => {
     setIsDelete((prev) => !prev);
@@ -116,6 +122,13 @@ export const ReactTableBase = ({
   const editarRemoverItem = (rowData) => {
     return (
       <>
+        {itemsValidated[0]?.cpf &&
+        <Button
+          icon="pi pi-chart-bar"
+          className="p-button-rounded p-button-success mr-2"
+          onClick={() => handleTimeLineModal(rowData)}
+        />
+        }
         <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2"
@@ -129,7 +142,8 @@ export const ReactTableBase = ({
             setDeleteItem(rowData);
           }}
         />
-        <Formulario state={isOpen} handleModal={handleModal} />
+        <TimeLineModal state={isTimeLineOpen} handleTimeLineModal={handleTimeLineModal} content={timeLineContent}/>
+        <Formulario state={isOpen} handleModal={handleFormModal} />
         <Dialog
           visible={isDelete}
           style={{ width: "450px" }}
@@ -206,9 +220,9 @@ export const ReactTableBase = ({
           label="Novo"
           icon="pi pi-plus"
           className="p-button-success p-2"
-          onClick={handleModal}
+          onClick={handleFormModal}
         />
-        <Formulario isModalOpen={isOpen} handleModal={handleModal} />
+        <Formulario isModalOpen={isOpen} handleModal={handleFormModal} />
       </>
     );
   };
@@ -280,6 +294,8 @@ export const ReactTableBase = ({
                   style={{ minWidth: "12rem" }}
                 />
               )} 
+
+
               {isAdmin ? (
                 <Column
                   header="Ação"

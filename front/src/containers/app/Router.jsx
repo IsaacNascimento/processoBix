@@ -17,22 +17,10 @@ const rotasPrivadas = [
     component: <Empresa />,
   },
   {
-    id: "form-empresa-route",
-    title: "Rota Empresa Form",
-    path: "/form/empresa",
-    component: <FormEmpresa />,
-  },
-  {
     id: "funcionarios-route",
     title: "Rota Funcionarios",
     path: "/funcionarios",
     component: <Usuario />,
-  },
-  {
-    id: "linha-tempo-route",
-    title: "Rota linha-tempo",
-    path: "/linha/tempo",
-    component: <div>Linha do Tempo</div>,
   },
 ];
 

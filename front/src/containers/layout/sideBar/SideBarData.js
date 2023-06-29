@@ -18,11 +18,4 @@ export const sideBarDataItems = [
       { title: "Funcionários", path: "/funcionarios" }
     ],
   },
-  {
-    title: "Linha do tempo",
-    path: "/linha/tempo",
-    icon: <AiIcons.AiOutlineBarChart className={iconStyle} />,
-    arrowIcon: arrowIcon,
-    cName: "nav-text",
-  },
 ];

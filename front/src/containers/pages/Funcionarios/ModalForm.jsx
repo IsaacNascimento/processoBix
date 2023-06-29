@@ -65,7 +65,7 @@ export const ModalForm = ({ isModalOpen, handleModal, ...args }) => {
     } else {
       // Cria Funcionário
       dispatch(createFuncionario(values));
-      // handleModal();
+      handleModal();
     }
   };
 
