@@ -1,24 +1,19 @@
-# Define a imagem base
-FROM python:3.9
+# # Define a imagem base
+FROM python:3.11
 
-# Define o diretório de trabalho dentro do container
-WORKDIR /app
+ENV PYTHONUNBUFFERED=1
 
-# Copia o arquivo requirements.txt para o diretório de trabalho
-COPY requirements.txt .
+WORKDIR /code
 
-RUN python3 -m venv venv
+COPY requirements.txt requirements.txt
 
-# Instala as dependências do projeto
-RUN /bin/bash -c "source venv/bin/activate"
-# RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
-# Copia o restante do código fonte para o diretório de trabalho
 COPY . .
 
-RUN /bin/bash -c "source venv/bin/activate && python3 -m pip install Django"
-RUN "python3 -m pip install djangorestframework"
+EXPOSE 8000
 
-# Define o comando a ser executado quando o container for iniciado
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 CMD ["/bin/bash", "-c", "source venv/bin/activate && python3 manage.py runserver 0.0.0.0:8000"]
+
+
+
