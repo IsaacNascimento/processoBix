@@ -58,32 +58,32 @@ export const LoginForm = () => {
     <React.Fragment>
       <form id="form-login" className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__form-group">
-          <span className="form__form-group-label">User Name</span>
+          <span className="form__form-group-label">Nome do Usuário</span>
 
           <input
             {...register("username", { required: true })}
             name="username"
             className="input-modal-form"
-            placeholder="Type your username"
+            placeholder="Nome de usuário"
             required
             disabled={isFetching}
             type={"text" || "email"}
           />
           {errors.username && (
             <span className="span-validation">
-              User field is required
+              Campo 'Nome' é obrigatório
             </span>
           )}
         </div>
 
         <div className="form__form-group">
-          <span className="form__form-group-label">Password</span>
+          <span className="form__form-group-label">Senha</span>
           <div className="form__form-group-field">
             <input
               {...register("password", { required: true })}
               name="password"
               className="input-modal-form"
-              placeholder="Type your Password"
+              placeholder="Digite sua Senha"
               disabled={isFetching}
               required
               type={isPassword ? "password" : "text"}
@@ -104,7 +104,7 @@ export const LoginForm = () => {
         </div>
         {error && (
           <div className="container-span-validation">
-            <span className="span-validation">{error}</span>
+            <span className="span-validation">Erro de autenticação</span>
           </div>
         )}
         <button
@@ -114,10 +114,10 @@ export const LoginForm = () => {
           type="submit"
           disabled={isFetching}
         >
-          {isFetching ? "IsFetching..." : "Login"}
+          {isFetching ? "Aguardando..." : "Entrar"}
         </button>
       </form>
-      <p className="acesso-restrito">Restricted access</p>
+      <p className="acesso-restrito">Acesso Restrito</p>
     </React.Fragment>
   );
 };
